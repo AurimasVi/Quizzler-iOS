@@ -26,13 +26,13 @@
                                 <rect key="frame" x="20" y="48" width="374" height="814"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Question Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSI-li-mhO">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="534"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="444"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AnswerLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kj-Aq-hDT">
-                                        <rect key="frame" x="0.0" y="544" width="374" height="70"/>
+                                        <rect key="frame" x="0.0" y="454" width="374" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="coJ-JX-r1K"/>
                                         </constraints>
@@ -40,6 +40,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLU-ku-QBf">
+                                        <rect key="frame" x="0.0" y="534" width="374" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="yc8-qk-Pyv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Restart" backgroundImage="Rectangle">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="restartBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cmg-f5-Rfp"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVw-Hl-IRe">
                                         <rect key="frame" x="0.0" y="624" width="374" height="80"/>
                                         <constraints>
@@ -102,6 +116,7 @@
                         <outlet property="falseBtn" destination="tbn-vQ-GyC" id="Yrz-qg-iqK"/>
                         <outlet property="progressBar" destination="TXm-qh-7Xg" id="b8L-PM-DMj"/>
                         <outlet property="questionLabel" destination="rSI-li-mhO" id="eME-B9-gWz"/>
+                        <outlet property="restartBtn" destination="xLU-ku-QBf" id="mwP-Sm-EqI"/>
                         <outlet property="trueBtn" destination="oVw-Hl-IRe" id="h46-So-fxp"/>
                     </connections>
                 </viewController>

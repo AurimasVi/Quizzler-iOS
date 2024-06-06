@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var restartBtn: UIButton!
     @IBOutlet weak var trueBtn: UIButton!
     @IBOutlet weak var falseBtn: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -27,16 +28,19 @@ class ViewController: UIViewController {
        
         progressBar.progress = Float(questionNumber + 1) / Float(quizzQuestions.count)
         
-        if quizzQuestions[questionNumber][1] == sender.titleLabel?.text {
+        if quizzQuestions[questionNumber][1] == sender.titleLabel?.text && sender.titleLabel?.text != "Restart"  {
             answerLabel.text = "CORRECT"
             answerLabel.textColor = UIColor.green
             answerLabel.alpha = 1
             textAnimation()
-        } else {
+        } else if sender.titleLabel?.text != "Restart" {
             answerLabel.text = "INCORRECT"
             answerLabel.textColor = UIColor.red
             answerLabel.alpha = 1
             textAnimation()
+        } else if sender.titleLabel?.text != "Restart" {
+            questionNumber = 0
+            viewDidLoad()
         }
         
         func textAnimation() {
@@ -52,11 +56,23 @@ class ViewController: UIViewController {
             
         } else {
             questionLabel.text = "No more questions left."
+            trueBtn.isHidden = true
+            falseBtn.isHidden = true
+            restartBtn.isHidden = false
         }
 
     }
     
     
+    @IBAction func restartBtnPressed(_ sender: UIButton) {
+        questionNumber = 0
+        updateQuestion()
+        trueBtn.isHidden = false
+        falseBtn.isHidden = false
+        restartBtn.isHidden = true
+        answerLabel.alpha = 0
+        progressBar.progress = 0
+    }
     
     func updateQuestion() {
         
@@ -65,6 +81,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        restartBtn.isHidden = true
         answerLabel.alpha = 0
         updateQuestion()
         progressBar.progress = 0

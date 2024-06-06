@@ -18,13 +18,15 @@ class ViewController: UIViewController {
     let quizzQuestions = [
         ["1+1 = 2?", "True"],
         ["1+2 = 3?", "True"],
-        ["1+4 = 2?", "false"],
+        ["1+4 = 2?", "False"],
         ["2+2 = 4?", "True"]
     ]
     var questionNumber = 0
     
     @IBAction func answerBtnPressed(_ sender: UIButton) {
        
+        progressBar.progress = Float(questionNumber + 1) / Float(quizzQuestions.count)
+        
         if quizzQuestions[questionNumber][1] == sender.titleLabel?.text {
             answerLabel.text = "CORRECT"
             answerLabel.textColor = UIColor.green
@@ -54,6 +56,8 @@ class ViewController: UIViewController {
 
     }
     
+    
+    
     func updateQuestion() {
         
         questionLabel.text = quizzQuestions[questionNumber][0]
@@ -63,6 +67,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         answerLabel.alpha = 0
         updateQuestion()
+        progressBar.progress = 0
     }
 
 

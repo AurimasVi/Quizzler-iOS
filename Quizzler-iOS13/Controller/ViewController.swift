@@ -1,14 +1,7 @@
-//
-//  ViewController.swift
-//  Quizzler-iOS13
-//
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var restartBtn: UIButton!
     @IBOutlet weak var trueBtn: UIButton!
     @IBOutlet weak var falseBtn: UIButton!
@@ -22,74 +15,61 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         restartBtn.isHidden = true
         answerLabel.alpha = 0
-        updateQuestion()
-        progressBar.progress = 0
+        updateUI()
+        progressBar.progress = quizBrain.getProgressBar()
     }
-    
-    
     
     @IBAction func answerBtnPressed(_ sender: UIButton) {
-       
-        var userAnswer = sender.currentTitle!
+        let userAnswer = sender.currentTitle!
         let userGotItRight = quizBrain.checkAnswer(userAnswer)
         
-        progressBar.progress = Float(questionNumber + 1) / Float(quizzQuestions.count)
+        progressBar.progress = quizBrain.getProgressBar()
         
-      
-        
-        if userGotItRight && sender.titleLabel?.text != "Restart"  {
-            answerLabel.text = "CORRECT"
-            answerLabel.textColor = UIColor.green
-            answerLabel.alpha = 1
-            textAnimation()
-        } else if sender.titleLabel?.text != "Restart" {
-            answerLabel.text = "INCORRECT"
-            answerLabel.textColor = UIColor.red
-            answerLabel.alpha = 1
-            textAnimation()
-        } else if sender.titleLabel?.text != "Restart" {
-            questionNumber = 0
-            viewDidLoad()
-        }
-        
-        func textAnimation() {
-            UIView.animate(withDuration: 1, delay: 1) {
-                self.answerLabel.alpha = 0
+        if sender.currentTitle != "Restart" {
+            if userGotItRight {
+                answerLabel.text = "CORRECT"
+                answerLabel.textColor = UIColor.green
+            } else {
+                answerLabel.text = "INCORRECT"
+                answerLabel.textColor = UIColor.red
             }
+            answerLabel.alpha = 1
+            textAnimation()
         }
         
-        let lastIndex = quizzQuestions.count - 1
-        if questionNumber < lastIndex {
-            questionNumber += 1
-            updateQuestion()
-            
+        if quizBrain.nextQuestion() {
+            updateUI()
         } else {
-            questionLabel.text = "No more questions left."
-            trueBtn.isHidden = true
-            falseBtn.isHidden = true
-            restartBtn.isHidden = false
+            endQuiz()
         }
-
     }
-    
     
     @IBAction func restartBtnPressed(_ sender: UIButton) {
-        questionNumber = 0
-        updateQuestion()
+        quizBrain.reset()
+        updateUI()
+        restartBtn.isHidden = true
         trueBtn.isHidden = false
         falseBtn.isHidden = false
-        restartBtn.isHidden = true
         answerLabel.alpha = 0
-        progressBar.progress = 0
+        progressBar.progress = quizBrain.getProgressBar()
     }
     
-    func updateQuestion() {
-        
-        questionLabel.text = quizzQuestions[questionNumber].text
+    func updateUI() {
+        questionLabel.text = quizBrain.getQuestionText()
+        progressBar.progress = quizBrain.getProgressBar()
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
     }
     
+    func endQuiz() {
+        questionLabel.text = "No more questions left."
+        trueBtn.isHidden = true
+        falseBtn.isHidden = true
+        restartBtn.isHidden = false
+    }
     
-
-
+    func textAnimation() {
+        UIView.animate(withDuration: 1, delay: 1) {
+            self.answerLabel.alpha = 0
+        }
+    }
 }
-
